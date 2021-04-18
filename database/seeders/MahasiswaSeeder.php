@@ -18,6 +18,12 @@ class MahasiswaSeeder extends Seeder
             'nim' => "1905551023",
             'nama' => "Hari Anugrah",
             'angkatan' => 2019,
+            'active' => False,
+        ]);
+        Mahasiswa::factory()->create([
+            'nim' => "1905551024",
+            'nama' => "Letisha Delta",
+            'angkatan' => 2019,
             'active' => True,
         ]);
     }

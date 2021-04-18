@@ -40,46 +40,32 @@ class MahasiswaDt extends TableComponent
 
     public function columns() : array
     {
-        //
         return [
             Column::make('ID')
+                ->searchable()
+                ->sortable(),
+            Column::make('NIM')
                 ->searchable()
                 ->sortable(),
             Column::make('Nama')
                 ->searchable()
                 ->sortable(),
-            // Column::make('Jumlah Bayar', 'confirmed_payment_amount')
-            //     ->format(function(StorePayment $model) {
-            //         return $model->payment_amount;
-            //     }),
-            // Column::make('Terkonfirmasi (Rp)', 'confirmed_payment_amount'),
-            // // Column::make('Qty', 'qty')
-            // //     ->searchable()
-            // //     ->sortable(),
-            // // Column::make('Harga DP (Rp)', 'due_dp_price'),
-            // Column::make('Bukti Transaksi', '_')
-            //     ->format(function(StorePayment $model) {
-            //         return $this->secureLink($model->getFirstMediaUrl('proof_of_trans'), 'Lihat bukti pembayaran');
-            //     }),
-            // Column::make('Dikonfirmasi oleh', '_')
-            //     ->format(function(StorePayment $model) {
-            //         if ($model->confirmed_by_user_id == null) {
-            //             return "Menunggu konfirmasi";
-            //         } else {
-            //             return $model->confirmingUser()->name;
-            //         }
-            //     }),
-            // Column::make('Note', 'note')
-            //     ->searchable()
-            //     ->sortable()
-            //     // ->raw()
-            //     ->format(function(StorePayment $model) {
-            //         return $this->html(nl2br(e($model->note)));
-            //     }),
-            // Column::make('Actions', '_')
-            //     ->format(function(StorePayment $model) {
-            //         return View('components.actions.table-fungsio-payment-confirming', compact('model'));
-            //     })
+            Column::make('Angkatan')
+                ->searchable()
+                ->sortable(),
+            Column::make('Aktif')
+                ->sortable()
+                ->format(function(Mahasiswa $model) {
+                    if ($model->active) {
+                        return "✓";
+                    } else {
+                        return "✕";
+                    }
+                }),
+            Column::make('Actions')
+                ->format(function(Mahasiswa $model) {
+                    return View('components.actions.table-mahasiswa-actions', compact('model'));
+                })
         ];
     }
 }
