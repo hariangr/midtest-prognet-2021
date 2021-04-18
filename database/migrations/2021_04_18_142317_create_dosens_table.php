@@ -16,6 +16,10 @@ class CreateDosensTable extends Migration
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->char('nidn',10);
+            $table->string('nama');
+            $table->string('email');
+            $table->boolean('active')->default(true);
         });
     }
 

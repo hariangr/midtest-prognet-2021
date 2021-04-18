@@ -16,6 +16,8 @@ class CreateMatkulsTable extends Migration
         Schema::create('matkuls', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title');
+            $table->enum('concentration', array('tib', 'tic', 'mkj', 'mb'));
         });
     }
 

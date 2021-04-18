@@ -16,8 +16,11 @@ class CreateMahasiswasTable extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nim')->unique();
+            $table->char('nim', 10)->unique();
             $table->string('nama');
+            $table->smallInteger('angkatan');
+            $table->boolean('active')->default(true);
+            $table->date('date_of_birth')->nullable();
         });
     }
 

@@ -16,6 +16,12 @@ class CreateKartuStudisTable extends Migration
         Schema::create('kartu_studis', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->bigInteger('mahasiswas_id')->unsigned();
+            $table->foreign('mahasiswas_id')->references('id')->on('mahasiswas')->onDelete('cascade');
+
+            $table->bigInteger('kelas_id')->unsigned();
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
         });
     }
 

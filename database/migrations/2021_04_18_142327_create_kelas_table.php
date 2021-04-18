@@ -16,6 +16,17 @@ class CreateKelasTable extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            
+            $table->char("class_name", 1);
+
+            $table->boolean('is_ongoing')->default(false);
+
+            $table->bigInteger('matkuls_id')->unsigned();
+            $table->foreign('matkuls_id')->references('id')->on('matkuls')->onDelete('cascade');
+
+            $table->bigInteger('dosens_id')->unsigned();
+            $table->foreign('dosens_id')->references('id')->on('dosens')->onDelete('cascade');
+            
         });
     }
 
