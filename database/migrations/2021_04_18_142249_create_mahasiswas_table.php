@@ -20,7 +20,6 @@ class CreateMahasiswasTable extends Migration
             $table->string('nama');
             $table->smallInteger('angkatan');
             $table->boolean('active')->default(true);
-            $table->date('date_of_birth')->nullable();
         });
     }
 

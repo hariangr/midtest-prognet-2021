@@ -15,10 +15,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard.layout');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(function () {
+    // forum/
+    Route::get('/', function () {
+        return redirect(route('dashboard.mahasiswa.index'));
+    })->name('index');
+
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.mahasiswa.index');
+        })->name('index');
+    });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.layout');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
