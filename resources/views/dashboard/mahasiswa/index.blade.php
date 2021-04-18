@@ -45,19 +45,41 @@
         </form>
     </div>
 
-    <div id="mahasiswa-table">
-        <livewire:mahasiswa-dt />
+    <div class="flex flex-col">
+        <div class="flex flex-row pb-4">
+            <div class="flex-grow"></div>
+
+            <x-buttons.icon-text-button id="btn_create">
+                <x-slot name="text">
+                    What is Dis?
+                </x-slot>
+                <x-slot name="icon">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </x-slot>
+            </x-buttons.icon-text-button>
+        </div>
+
+        <div id="mahasiswa-table">
+            <livewire:mahasiswa-dt />
+        </div>
     </div>
 
     <script>
         const createForm = document.getElementById("createForm");
-        const mahasiswaTable = document.getElementById("mahasiswa-table");
 
         document.getElementById("cancelAdd").addEventListener("click", function(e) {
             createForm.classList.add("hidden");
         })
 
-        mahasiswaTable.addEventListener("click", function(e) {
+        document.getElementById("btn_create").addEventListener("click", function(e) {
+            createForm.classList.remove('hidden');
+        })
+
+        document.getElementById("mahasiswa-table").addEventListener("click", function(e) {
             if (e.target.classList.contains('action-delete')) {
                 console.log("hasb");
                 // dialogConfirm.classList.remove("hidden");
