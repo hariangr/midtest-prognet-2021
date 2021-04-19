@@ -247,19 +247,20 @@
 
         document.getElementById("mahasiswa-table").addEventListener("click", function(e) {
             if (e.target.classList.contains('action-delete')) {
+                // DELETE
                 deleteForm.classList.remove("hidden");
 
                 const namaMahasiswa = e.target.getAttribute("data-mahasiswa-name");
                 document.getElementById("deleteNamePrev").innerText = namaMahasiswa;
 
                 const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
-                // document.getElementById("deleteMahasiswaForm").value = idMahasiswa
-
                 deleteForm.action = '/dashboard/mahasiswa/' + idMahasiswa;
             } else if (e.target.classList.contains('action-show')) {
+                // SHOW
                 const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
                 window.location.assign('/dashboard/mahasiswa/' + idMahasiswa)
             } else if (e.target.classList.contains('action-edit')) {
+                // UPDATE
                 const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
                 const nimMahasiswa = e.target.getAttribute("data-mahasiswa-nim");
                 const namaMahasiswa = e.target.getAttribute("data-mahasiswa-nama");
@@ -271,11 +272,6 @@
                 document.getElementById("editNama").value = namaMahasiswa;
                 document.getElementById("editAngkatan").value = angkatanMahasiswa;
                 document.getElementById("editAktif").checked = activeMahasiswa == '1';
-                console.log({
-                    activeMahasiswa,
-                    nimMahasiswa,
-                    namaMahasiswa
-                });
 
                 editForm.action = '/dashboard/mahasiswa/' + idMahasiswa;
                 editForm.classList.remove('hidden');
