@@ -7,7 +7,7 @@
 @section('content')
 
     <div>
-        <form id="createForm" action="{{ route('dashboard.dosen.store') }}" class="hidden" name="createForm"
+        <form id="createForm" action="{{ route('dashboard.kelas.store') }}" class="hidden" name="createForm"
             method="POST">
             <x-dialogs.simple-gray-footer title="Tambah Dosen">
                 <x-slot name="buttons">
@@ -26,35 +26,45 @@
 
                 <x-slot name="description">
                     <div class="relative mb-4 ">
-                        <label for="title" class="text-sm leading-7 text-gray-600">Nama</label>
-                        <input type="text" name="nama"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <label for="title" class="text-sm leading-7 text-gray-600">Mata Kuliah</label>
+                        <select name="matkuls_id" id=""
+                            class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                            <option disabled selected>-</option>
 
-                        @error('nama')
+                            @foreach ($matkuls as $it)
+                                <option value="{{$it->id}}">{{$it->title}}</option>
+                            @endforeach
+                        </select>
+
+                        @error('matkuls_id')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="key" class="text-sm leading-7 text-gray-600">NIDN</label>
-                        <input type="number" name="nidn"
+                        <label for="key" class="text-sm leading-7 text-gray-600">Nama Kelas</label>
+                        <input type="text" name="class_name"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <small><i>Misal: 0027027509</i></small>
 
-                        @error('nidn')
+                        @error('class_name')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="key" class="text-sm leading-7 text-gray-600">Email</label>
-                        <input type="email" name="email"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <small><i>Misal: nama@example.com</i></small>
+                        <label for="title" class="text-sm leading-7 text-gray-600">Pembimbing</label>
+                        <select name="dosens_id" id=""
+                            class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                            <option disabled selected>-</option>
 
-                        @error('email')
+                            @foreach ($dosens as $it)
+                                <option value="{{$it->id}}">{{$it->nama}}</option>
+                            @endforeach
+                        </select>
+
+                        @error('dosens_id')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
@@ -64,11 +74,11 @@
                         <label for="aktif" class="inline-flex items-center">
                             <input id="aktif" type="checkbox" checked
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                name="active">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
+                                name="is_ongoing">
+                            <span class="ml-2 text-sm text-gray-600">Berlangsung</span>
                         </label>
 
-                        @error('active')
+                        @error('is_ongoing')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
@@ -249,7 +259,7 @@
             createForm.classList.remove('hidden');
         })
 
-        document.getElementById("dosen-table").addEventListener("click", function(e) {
+        document.getElementById("kelas-table").addEventListener("click", function(e) {
             if (e.target.classList.contains('action-delete')) {
                 // DELETE
                 deleteForm.classList.remove("hidden");
@@ -261,8 +271,8 @@
                 deleteForm.action = '/dashboard/dosen/' + _id;
             } else if (e.target.classList.contains('action-show')) {
                 // SHOW
-                const _id = e.target.getAttribute("data-dosen-id");
-                window.location.assign('/dashboard/dosen/' + _id)
+                const _id = e.target.getAttribute("data-kelas-id");
+                window.location.assign('/dashboard/kelas/' + _id)
             } else if (e.target.classList.contains('action-edit')) {
                 // UPDATE
                 const _id = e.target.getAttribute("data-dosen-id");

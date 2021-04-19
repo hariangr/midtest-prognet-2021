@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matkul;
 use App\Models\Dosen;
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +18,9 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('dashboard.kelas.index');
+        $matkuls = Matkul::all();
+        $dosens = Dosen::all();
+        return view('dashboard.kelas.index', compact('matkuls', 'dosens'));
     }
 
     /**
@@ -27,23 +32,25 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'nidn' => 'required|numeric|digits_between:10,10',
-            'email' => 'required|email',
+            'class_name' => 'required|string|min:1|max:1',
+            'matkuls_id' => 'required|exists:matkuls,id',
+            'dosens_id' => 'required|exists:dosens,id',
         ]);
 
-        if (Dosen::where('nidn', $request['nidn'])->first() != null) {
-            return back()->withInput()->with('errMsg', 'Dosen dengan nidn ' . $request['nidn'] . ' sudah ada');
+        Log::info($request);
+
+        if (Kelas::where('matkuls_id', $request['matkuls_id'])->where('dosens_id', $request['dosens_id'])->where('class_name', $request['class_name'])->first() != null) {
+            return back()->withInput()->with('errMsg', 'Kelas sudah ada');
         }
 
-        $data = Dosen::create([
-            "nama" => $request['nama'],
-            "nidn"  => $request['nidn'],
-            "email" => $request['email'],
-            "active" => isset($request['active']),
+        $data = Kelas::create([
+            "class_name" => $request['class_name'],
+            "matkuls_id"  => $request['matkuls_id'],
+            "dosens_id" => $request['dosens_id'],
+            "is_ongoing" => isset($request['is_ongoing']),
         ]);
 
-        return back()->with('success', 'Berhasil menambah dosen');
+        return back()->with('success', 'Berhasil menambah kelas');
     }
 
     /**
@@ -52,9 +59,13 @@ class KelasController extends Controller
      * @param  \App\Models\Matkul  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Dosen $dosen)
+    public function show(Kelas $kela)
     {
-        return view('dashboard.dosen.show', compact('dosen'));
+        $kelas = $kela; 
+        $matkul = $kelas->matkul();
+        $dosen = $kelas->dosen();
+        $mahasiswas = Mahasiswa::all();
+        return view('dashboard.kelas.show', compact('kelas', 'matkul', 'dosen', 'mahasiswas'));
     }
 
     /**

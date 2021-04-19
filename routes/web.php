@@ -4,6 +4,8 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KartuStudiController;
+use App\Models\KartuStudi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,7 +52,11 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     Route::resource('kelas', KelasController::class)->only([
         'index', 'store', 'show', 'update', 'destroy'
     ])->middleware(['auth']);
+
+    Route::resource('kartustudi', KartuStudiController::class)->only([
+        'store', 'destroy'
+    ])->middleware(['auth']);
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
