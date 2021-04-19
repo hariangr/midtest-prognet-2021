@@ -21,7 +21,7 @@
                     <x-nav-link :href="route('dashboard.dosen.index')" :active="request()->segment(2) == 'dosen'">
                         {{ __('Dosen') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'kelas'">
+                    <x-nav-link :href="route('dashboard.kelas.index')" :active="request()->segment(2) == 'kelas'">
                         {{ __('Kelas') }}
                     </x-nav-link>
                 </div>
@@ -88,7 +88,7 @@
             <x-responsive-nav-link :href="route('dashboard.dosen.index')" :active="request()->segment(2) == 'dosen'">
                 {{ __('Dosen') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'kelas'">
+            <x-responsive-nav-link :href="route('dashboard.kelas.index')" :active="request()->segment(2) == 'kelas'">
                 {{ __('Kelas') }}
             </x-responsive-nav-link>
         </div>
