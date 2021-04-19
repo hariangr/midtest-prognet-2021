@@ -9,9 +9,9 @@
         </svg>
     </x-buttons.icon-button>
 
-    <x-buttons.icon-button class="action-edit" data-dosen-id="{{ $model->id }}"
-        data-dosen-nama="{{ $model->nama }}" data-dosen-nidn="{{ $model->nidn }}"
-        data-dosen-email="{{ $model->email }}" data-dosen-active="{{ $model->active }}">
+    <x-buttons.icon-button class="action-edit" data-kelas-id="{{ $model->id }}"
+        data-kelas-classname="{{ $model->class_name }}" data-kelas-isongoing="{{ $model->is_ongoing }}"
+        data-kelas-matkulsid="{{ $model->matkuls_id }}" data-kelas-dosensid="{{ $model->dosens_id }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 pointer-events-none" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,8 +19,7 @@
         </svg>
     </x-buttons.icon-button>
 
-    <x-buttons.icon-button class="action-delete" data-dosen-id="{{ $model->id }}"
-        data-dosen-nama="{{ $model->nama }}">
+    <x-buttons.icon-button class="action-delete" data-kelas-id="{{ $model->id }}">
         <svg class="w-4 h-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

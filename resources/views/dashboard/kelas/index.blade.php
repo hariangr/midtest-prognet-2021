@@ -27,12 +27,12 @@
                 <x-slot name="description">
                     <div class="relative mb-4 ">
                         <label for="title" class="text-sm leading-7 text-gray-600">Mata Kuliah</label>
-                        <select name="matkuls_id" id=""
+                        <select name="matkuls_id"
                             class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
                             <option disabled selected>-</option>
 
                             @foreach ($matkuls as $it)
-                                <option value="{{$it->id}}">{{$it->title}}</option>
+                                <option value="{{ $it->id }}">{{ $it->title }}</option>
                             @endforeach
                         </select>
 
@@ -55,12 +55,12 @@
                     </div>
                     <div class="relative mb-4 ">
                         <label for="title" class="text-sm leading-7 text-gray-600">Pembimbing</label>
-                        <select name="dosens_id" id=""
+                        <select name="dosens_id"
                             class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
                             <option disabled selected>-</option>
 
                             @foreach ($dosens as $it)
-                                <option value="{{$it->id}}">{{$it->nama}}</option>
+                                <option value="{{ $it->id }}">{{ $it->nama }}</option>
                             @endforeach
                         </select>
 
@@ -96,7 +96,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
         <form id="deleteForm" class="hidden" name="deleteForm" method="POST">
-            <x-dialogs.simple-gray-footer title="Hapus Dosen">
+            <x-dialogs.simple-gray-footer title="Hapus">
                 <x-slot name="buttons">
                     @csrf
                     @method('DELETE')
@@ -114,7 +114,7 @@
 
                 <x-slot name="description">
                     <p class="text-sm text-gray-500">
-                        Hapus dosen dengan nama <b id="deleteNamaPrev"></b>?
+                        Hapus kelas?
                     </p>
 
                 </x-slot>
@@ -147,35 +147,45 @@
 
                 <x-slot name="description">
                     <div class="relative mb-4 ">
-                        <label for="title" class="text-sm leading-7 text-gray-600">Nama</label>
-                        <input id="editNama" type="text" name="nama"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <label for="title" class="text-sm leading-7 text-gray-600">Mata Kuliah</label>
+                        <select id="editMatkuls" name="matkuls_id" 
+                            class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                            <option disabled selected>-</option>
 
-                        @error('nama')
+                            @foreach ($matkuls as $it)
+                                <option value="{{ $it->id }}">{{ $it->title }}</option>
+                            @endforeach
+                        </select>
+
+                        @error('matkuls_id')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="key" class="text-sm leading-7 text-gray-600">NIDN</label>
-                        <input id="editNidn" type="number" name="nidn"
+                        <label for="key" class="text-sm leading-7 text-gray-600">Nama Kelas</label>
+                        <input id="editClassname" type="text" name="class_name"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <small><i>Misal: 0027027509</i></small>
 
-                        @error('nidn')
+                        @error('class_name')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="key" class="text-sm leading-7 text-gray-600">Email</label>
-                        <input id="editEmail" type="email" name="email"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <small><i>Misal: nama@example.com</i></small>
+                        <label for="title" class="text-sm leading-7 text-gray-600">Pembimbing</label>
+                        <select id="editDosens" name="dosens_id"
+                            class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                            <option disabled selected>-</option>
 
-                        @error('email')
+                            @foreach ($dosens as $it)
+                                <option value="{{ $it->id }}">{{ $it->id }}</option>
+                            @endforeach
+                        </select>
+
+                        @error('dosens_id')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
@@ -183,13 +193,13 @@
                     </div>
                     <div class="relative mb-4 ">
                         <label for="aktif" class="inline-flex items-center">
-                            <input id="editAktif" type="checkbox"
+                            <input id="editAktif" type="checkbox" checked
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                name="active">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
+                                name="is_ongoing">
+                            <span class="ml-2 text-sm text-gray-600">Berlangsung</span>
                         </label>
 
-                        @error('active')
+                        @error('is_ongoing')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
@@ -264,29 +274,35 @@
                 // DELETE
                 deleteForm.classList.remove("hidden");
 
-                const _nama = e.target.getAttribute("data-dosen-nama");
-                document.getElementById("deleteNamaPrev").innerText = _nama;
-
-                const _id = e.target.getAttribute("data-dosen-id");
-                deleteForm.action = '/dashboard/dosen/' + _id;
+                const _id = e.target.getAttribute("data-kelas-id");
+                deleteForm.action = '/dashboard/kelas/' + _id;
             } else if (e.target.classList.contains('action-show')) {
                 // SHOW
                 const _id = e.target.getAttribute("data-kelas-id");
                 window.location.assign('/dashboard/kelas/' + _id)
             } else if (e.target.classList.contains('action-edit')) {
                 // UPDATE
-                const _id = e.target.getAttribute("data-dosen-id");
-                const _nama = e.target.getAttribute("data-dosen-nama");
-                const _nidn = e.target.getAttribute("data-dosen-nidn");
-                const _email = e.target.getAttribute("data-dosen-email");
-                const _active = e.target.getAttribute("data-dosen-active");
+                const _id = e.target.getAttribute("data-kelas-id");
+                const _class_name = e.target.getAttribute("data-kelas-classname");
+                const _is_ongoing = e.target.getAttribute("data-kelas-isongoing");
+                const _matkuls_id = e.target.getAttribute("data-kelas-matkulsid");
+                const _dosens_id = e.target.getAttribute("data-kelas-dosensid");
 
-                document.getElementById("editNama").value = _nama;
-                document.getElementById("editNidn").value = _nidn;
-                document.getElementById("editEmail").value = _email;
-                document.getElementById("editAktif").checked = _active == '1';
+                console.log({
+                    _id,
+                    _class_name,
+                    _is_ongoing,
+                    _matkuls_id,
+                    _dosens_id,
+                    'entah': `#editDosens [value='${_dosens_id}']`
+                });
 
-                editForm.action = '/dashboard/dosen/' + _id;
+                document.querySelector(`#editMatkuls [value='${_matkuls_id}']`).selected = true;
+                document.getElementById("editClassname").value = _class_name;
+                document.querySelector(`#editDosens [value='${_dosens_id}']`).selected = true;
+                document.getElementById("editAktif").checked = _is_ongoing == '1';
+
+                editForm.action = '/dashboard/kelas/' + _id;
                 editForm.classList.remove('hidden');
             }
         })

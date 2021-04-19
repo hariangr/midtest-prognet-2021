@@ -39,7 +39,7 @@ class KelasController extends Controller
 
         Log::info($request);
 
-        if (Kelas::where('matkuls_id', $request['matkuls_id'])->where('dosens_id', $request['dosens_id'])->where('class_name', $request['class_name'])->first() != null) {
+        if (Kelas::where('matkuls_id', $request['matkuls_id'])->where('class_name', $request['class_name'])->first() != null) {
             return back()->withInput()->with('errMsg', 'Kelas sudah ada');
         }
 
@@ -75,21 +75,25 @@ class KelasController extends Controller
      * @param  \App\Models\Matkul  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dosen $dosen)
+    public function update(Request $request, Kelas $kela)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'nidn' => 'required|numeric|digits_between:10,10',
-            'email' => 'required|email',
+            'class_name' => 'required|string',
+            'matkuls_id' => 'required|exists:matkuls,id',
+            'dosens_id' => 'required|exists:dosens,id',
         ]);
 
-        $dosen['nama'] = $request['nama'];
-        $dosen['nidn'] = $request['nidn'];
-        $dosen['email'] = $request['email'];
-        $dosen['active'] = isset($request['active']);
-        $dosen->save();
+        if (Kelas::where('matkuls_id', $request['matkuls_id'])->where('class_name', $request['class_name'])->first() != null) {
+            return back()->withInput()->with('errMsg', 'Kelas sudah ada');
+        }
 
-        return back()->with('success', 'Berhasil mengubah dosen');
+        $kela['class_name'] = $request['class_name'];
+        $kela['matkuls_id'] = $request['matkuls_id'];
+        $kela['dosens_id'] = $request['dosens_id'];
+        $kela['is_ongoing'] = isset($request['is_ongoing']);
+        $kela->save();
+
+        return back()->with('success', 'Berhasil mengubah kelas');
     }
 
     /**
@@ -98,9 +102,9 @@ class KelasController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dosen $dosen)
+    public function destroy(Kelas $kela)
     {
-        Dosen::destroy($dosen->id);
-        return back()->with('success', 'Berhasil menghapus dosen');
+        Kelas::destroy($kela->id);
+        return back()->with('success', 'Berhasil menghapus kelas');
     }
 }
