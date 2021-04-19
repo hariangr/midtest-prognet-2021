@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,11 +28,13 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
         return redirect(route('dashboard.mahasiswa.index'));
     })->name('index');
 
-    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard.mahasiswa.index');
-        })->name('index');
-    });
+    // Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+    //     Route::get('/', [MahasiswaController::class, 'index'])->name('index');
+    // });
+
+    Route::resource('mahasiswa', MahasiswaController::class)->only([
+        'index', 'store', 'show', 'update', 'destroy'
+    ])->middleware(['auth']);
 });
 
 

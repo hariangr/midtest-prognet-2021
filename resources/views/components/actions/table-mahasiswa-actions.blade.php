@@ -1,5 +1,5 @@
 <div class="flex flex-row space-x-2">
-    <x-buttons.icon-button class="action-show">
+    <x-buttons.icon-button class="action-show" data-mahasiswa-id="{{ $model->id }}">
         <svg class="w-4 h-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -9,7 +9,7 @@
         </svg>
     </x-buttons.icon-button>
 
-    <x-buttons.icon-button class="action-delete" data-mahasiswa-id="{{ $model->id }}">
+    <x-buttons.icon-button class="action-delete" data-mahasiswa-id="{{ $model->id }}" data-mahasiswa-name="{{ $model->nama }}">
         <svg class="w-4 h-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
