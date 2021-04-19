@@ -7,7 +7,7 @@
 @section('content')
     <div class="flex flex-col">
         <div class="flex flex-row pb-4">
-            <a href="{{ route('dashboard.matkul.index') }}">
+            <a href="{{ route('dashboard.dosen.index') }}">
                 <x-buttons.icon-text-button id="btn_create">
                     <x-slot name="text">
                         Kembali
@@ -28,38 +28,34 @@
         <main>
 
             <div class="relative mb-4 ">
-                <label for="title" class="text-sm leading-7 text-gray-600">Nama Matkul</label>
-                <input disabled value="{{ $matkul->title }}" id="editTitle" type="text" name="title"
+                <label for="title" class="text-sm leading-7 text-gray-600">Nama</label>
+                <input disabled value="{{$dosen->nama}}" type="text" name="nama"
                     class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
             </div>
             <div class="relative mb-4 ">
-                <label for="key" class="text-sm leading-7 text-gray-600">Kode Matkul</label>
-                <input disabled value="{{ $matkul->key }}" id="editKey" type="text" name="key"
+                <label for="key" class="text-sm leading-7 text-gray-600">NIDN</label>
+                <input disabled value="{{$dosen->nidn}}" type="number" name="nidn"
                     class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                <small><i>Misal: TIC18</i></small>
+                <small><i>Misal: 0027027509</i></small>
+
             </div>
             <div class="relative mb-4 ">
-                <div class="relative mb-4 flex flex-col">
-                    <label class="text-sm leading-7 text-gray-600">Konsentrasi</label>
-                    <select disabled value="{{ $matkul->concentration }}" id="editConcentration" name="concentration" id=""
-                        class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <option value="tib">Manajemen Basis Data</option>
-                        <option value="tic">Teknologi Cerdas</option>
-                        <option value="mkj">Jaringan</option>
-                        <option value="mb">Manajemen</option>
+                <label for="key" class="text-sm leading-7 text-gray-600">Email</label>
+                <input disabled value="{{$dosen->email}}" type="email" name="email"
+                    class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                <small><i>Misal: nama@example.com</i></small>
 
-                    </select>
-                </div>
             </div>
-
             <div class="relative mb-4 ">
                 <label for="aktif" class="inline-flex items-center">
-                    <input id="editAktif" type="checkbox" disabled {{ $matkul->active ? 'checked' : '' }}
+                    <input disabled id="aktif" type="checkbox" {{ $dosen->active ? 'checked' : ''}}
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         name="active">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
                 </label>
+
             </div>
+
         </main>
     </div>
 @endsection

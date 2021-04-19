@@ -1,5 +1,5 @@
 <div class="flex flex-row space-x-2">
-    <x-buttons.icon-button class="action-show" data-matkul-id="{{ $model->id }}">
+    <x-buttons.icon-button class="action-show" data-dosen-id="{{ $model->id }}">
         <svg class="w-4 h-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -9,9 +9,9 @@
         </svg>
     </x-buttons.icon-button>
 
-    <x-buttons.icon-button class="action-edit" data-matkul-id="{{ $model->id }}"
-        data-matkul-title="{{ $model->title }}" data-matkul-key="{{ $model->key }}"
-        data-matkul-concentration="{{ $model->concentration }}" data-matkul-active="{{ $model->active }}">
+    <x-buttons.icon-button class="action-edit" data-dosen-id="{{ $model->id }}"
+        data-dosen-nama="{{ $model->nama }}" data-dosen-nidn="{{ $model->nidn }}"
+        data-dosen-email="{{ $model->email }}" data-dosen-active="{{ $model->active }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 pointer-events-none" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,8 +19,8 @@
         </svg>
     </x-buttons.icon-button>
 
-    <x-buttons.icon-button class="action-delete" data-matkul-id="{{ $model->id }}"
-        data-matkul-title="{{ $model->title }}">
+    <x-buttons.icon-button class="action-delete" data-dosen-id="{{ $model->id }}"
+        data-dosen-nama="{{ $model->nama }}">
         <svg class="w-4 h-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -61,7 +61,7 @@ class DosenDt extends TableComponent
                 }),
             Column::make('Actions')
                 ->format(function (Dosen $model) {
-                    return View('components.actions.table-matkul-actions', compact('model'));
+                    return View('components.actions.table-dosen-actions', compact('model'));
                 })
         ];
     }

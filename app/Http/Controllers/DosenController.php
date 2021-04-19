@@ -52,9 +52,9 @@ class DosenController extends Controller
      * @param  \App\Models\Matkul  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Matkul $matkul)
+    public function show(Dosen $dosen)
     {
-        return view('dashboard.matkul.show', compact('matkul'));
+        return view('dashboard.dosen.show', compact('dosen'));
     }
 
     /**
@@ -64,26 +64,21 @@ class DosenController extends Controller
      * @param  \App\Models\Matkul  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Matkul $matkul)
+    public function update(Request $request, Dosen $dosen)
     {
         $request->validate([
-            'title' => 'required|string',
-            'key' => 'required|string|min:5|max:5',
-            'concentration' => 'required|in:tib,tic,mkj,mb',
+            'nama' => 'required|string',
+            'nidn' => 'required|numeric|digits_between:10,10',
+            'email' => 'required|email',
         ]);
 
-        $_active = False;
-        if (isset($request['active'])) {
-            $_active = True;
-        }
+        $dosen['nama'] = $request['nama'];
+        $dosen['nidn'] = $request['nidn'];
+        $dosen['email'] = $request['email'];
+        $dosen['active'] = isset($request['active']);
+        $dosen->save();
 
-        $matkul['title'] = $request['title'];
-        $matkul['key'] = $request['key'];
-        $matkul['concentration'] = $request['concentration'];
-        $matkul['active'] = $_active;
-        $matkul->save();
-
-        return back()->with('success', 'Berhasil mengubah mata kuliah');
+        return back()->with('success', 'Berhasil mengubah dosen');
     }
 
     /**
@@ -92,9 +87,9 @@ class DosenController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matkul $matkul)
+    public function destroy(Dosen $dosen)
     {
-        Matkul::destroy($matkul->id);
-        return back()->with('success', 'Berhasil menghapus mata kuliah');
+        Dosen::destroy($dosen->id);
+        return back()->with('success', 'Berhasil menghapus dosen');
     }
 }

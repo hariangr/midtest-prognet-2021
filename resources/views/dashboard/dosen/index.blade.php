@@ -86,7 +86,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
         <form id="deleteForm" class="hidden" name="deleteForm" method="POST">
-            <x-dialogs.simple-gray-footer title="Hapus Mata Kuliah">
+            <x-dialogs.simple-gray-footer title="Hapus Dosen">
                 <x-slot name="buttons">
                     @csrf
                     @method('DELETE')
@@ -104,7 +104,7 @@
 
                 <x-slot name="description">
                     <p class="text-sm text-gray-500">
-                        Hapus mata kuliah dengan judul <b id="deleteTitlePrev"></b>?
+                        Hapus dosen dengan nama <b id="deleteNamaPrev"></b>?
                     </p>
 
                 </x-slot>
@@ -119,7 +119,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
         <form id="editForm" class="hidden" name="editForm" method="POST">
-            <x-dialogs.simple-gray-footer title="Edit Mata Kuliah">
+            <x-dialogs.simple-gray-footer title="Edit Dosen">
                 <x-slot name="buttons">
                     @csrf
                     @method('PATCH')
@@ -137,51 +137,43 @@
 
                 <x-slot name="description">
                     <div class="relative mb-4 ">
-                        <label for="title" class="text-sm leading-7 text-gray-600">Nama Matkul</label>
-                        <input id="editTitle" type="text" name="title"
+                        <label for="title" class="text-sm leading-7 text-gray-600">Nama</label>
+                        <input id="editNama" type="text" name="nama"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
 
-                        @error('title')
+                        @error('nama')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="key" class="text-sm leading-7 text-gray-600">Kode Matkul</label>
-                        <input id="editKey" type="text" name="key"
+                        <label for="key" class="text-sm leading-7 text-gray-600">NIDN</label>
+                        <input id="editNidn" type="number" name="nidn"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                        <small><i>Misal: TIC18</i></small>
+                        <small><i>Misal: 0027027509</i></small>
 
-                        @error('key')
+                        @error('nidn')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <div class="relative mb-4 flex flex-col">
-                            <label class="text-sm leading-7 text-gray-600">Konsentrasi</label>
-                            <select id="editConcentration" name="concentration" id=""
-                                class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
-                                <option value="tib">Manajemen Basis Data</option>
-                                <option value="tic">Teknologi Cerdas</option>
-                                <option value="mkj">Jaringan</option>
-                                <option value="mb">Manajemen</option>
+                        <label for="key" class="text-sm leading-7 text-gray-600">Email</label>
+                        <input id="editEmail" type="email" name="email"
+                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <small><i>Misal: nama@example.com</i></small>
 
-                            </select>
-                        </div>
-
-                        @error('concentration')
+                        @error('email')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
-
                     <div class="relative mb-4 ">
                         <label for="aktif" class="inline-flex items-center">
-                            <input id="editAktif" type="checkbox" checked
+                            <input id="editAktif" type="checkbox"
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 name="active">
                             <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
@@ -258,34 +250,34 @@
             createForm.classList.remove('hidden');
         })
 
-        document.getElementById("matkul-table").addEventListener("click", function(e) {
+        document.getElementById("dosen-table").addEventListener("click", function(e) {
             if (e.target.classList.contains('action-delete')) {
                 // DELETE
                 deleteForm.classList.remove("hidden");
 
-                const namaMatkul = e.target.getAttribute("data-matkul-title");
-                document.getElementById("deleteTitlePrev").innerText = namaMatkul;
+                const _nama = e.target.getAttribute("data-dosen-nama");
+                document.getElementById("deleteNamaPrev").innerText = _nama;
 
-                const _id = e.target.getAttribute("data-matkul-id");
-                deleteForm.action = '/dashboard/matkul/' + _id;
+                const _id = e.target.getAttribute("data-dosen-id");
+                deleteForm.action = '/dashboard/dosen/' + _id;
             } else if (e.target.classList.contains('action-show')) {
                 // SHOW
-                const _id = e.target.getAttribute("data-matkul-id");
-                window.location.assign('/dashboard/matkul/' + _id)
+                const _id = e.target.getAttribute("data-dosen-id");
+                window.location.assign('/dashboard/dosen/' + _id)
             } else if (e.target.classList.contains('action-edit')) {
                 // UPDATE
-                const _id = e.target.getAttribute("data-matkul-id");
-                const _title = e.target.getAttribute("data-matkul-title");
-                const _key = e.target.getAttribute("data-matkul-key");
-                const _concentration = e.target.getAttribute("data-matkul-concentration");
-                const _active = e.target.getAttribute("data-matkul-active");
+                const _id = e.target.getAttribute("data-dosen-id");
+                const _nama = e.target.getAttribute("data-dosen-nama");
+                const _nidn = e.target.getAttribute("data-dosen-nidn");
+                const _email = e.target.getAttribute("data-dosen-email");
+                const _active = e.target.getAttribute("data-dosen-active");
 
-                document.getElementById("editTitle").value = _title;
-                document.getElementById("editKey").value = _key;
-                document.getElementById("editConcentration").value = _concentration;
+                document.getElementById("editNama").value = _nama;
+                document.getElementById("editNidn").value = _nidn;
+                document.getElementById("editEmail").value = _email;
                 document.getElementById("editAktif").checked = _active == '1';
 
-                editForm.action = '/dashboard/matkul/' + _id;
+                editForm.action = '/dashboard/dosen/' + _id;
                 editForm.classList.remove('hidden');
             }
         })
