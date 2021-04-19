@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'mahasiswa'">
+                    <x-nav-link :href="route('dashboard.mahasiswa.index')" :active="request()->segment(2) == 'mahasiswa'">
                         {{ __('Mahasiswa') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'matkul'">
+                    <x-nav-link :href="route('dashboard.matkul.index')" :active="request()->segment(2) == 'matkul'">
                         {{ __('Mata Kuliah') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'dosen'">
@@ -79,10 +79,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'mahasiswa'">
+            <x-responsive-nav-link :href="route('dashboard.mahasiswa.index')" :active="request()->segment(2) == 'mahasiswa'">
                 {{ __('Mahasiswa') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'matkul'">
+            <x-responsive-nav-link :href="route('dashboard.matkul.index')" :active="request()->segment(2) == 'matkul'">
                 {{ __('Mata Kuliah') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'dosen'">

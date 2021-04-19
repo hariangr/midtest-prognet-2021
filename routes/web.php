@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MatkulController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,10 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     // });
 
     Route::resource('mahasiswa', MahasiswaController::class)->only([
+        'index', 'store', 'show', 'update', 'destroy'
+    ])->middleware(['auth']);
+
+    Route::resource('matkul', MatkulController::class)->only([
         'index', 'store', 'show', 'update', 'destroy'
     ])->middleware(['auth']);
 });

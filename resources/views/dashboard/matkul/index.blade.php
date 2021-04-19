@@ -5,10 +5,11 @@
 @endsection
 
 @section('content')
+
     <div>
-        <form id="createForm" class="hidden" action="{{ route('dashboard.mahasiswa.store') }}" name="createForm"
+        <form id="createForm" action="{{ route('dashboard.matkul.store') }}" class="hidden" name="createForm"
             method="POST">
-            <x-dialogs.simple-gray-footer title="Tambah Data Mahasiswa">
+            <x-dialogs.simple-gray-footer title="Tambah Mata Kuliah">
                 <x-slot name="buttons">
                     @csrf
 
@@ -25,47 +26,42 @@
 
                 <x-slot name="description">
                     <div class="relative mb-4 ">
-                        <label for="nim" class="text-sm leading-7 text-gray-600">NIM</label>
-                        <input type="number" min="0" step="1" name="nim" pattern="\d{10}"
+                        <label for="title" class="text-sm leading-7 text-gray-600">Nama Matkul</label>
+                        <input type="text" name="title"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
 
-                        @error('nim')
+                        @error('title')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="nama" class="text-sm leading-7 text-gray-600">Nama</label>
-                        <input type="text" name="nama"
+                        <label for="key" class="text-sm leading-7 text-gray-600">Kode Matkul</label>
+                        <input type="text" name="key"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <small><i>Misal: TIC18</i></small>
 
-                        @error('nama')
+                        @error('key')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="angkatan" class="text-sm leading-7 text-gray-600">Tahun Angkatan</label>
-                        <input type="number" min="2000" step="1" name="angkatan" pattern="\d{4}"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <div class="relative mb-4 flex flex-col">
+                            <label class="text-sm leading-7 text-gray-600">Konsentrasi</label>
+                            <select name="concentration" id=""
+                                class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                                <option value="tib">Manajemen Basis Data</option>
+                                <option value="tic">Teknologi Cerdas</option>
+                                <option value="mkj">Jaringan</option>
+                                <option value="mb">Manajemen</option>
 
-                        @error('angkatan')
-                            <span class="block pt-2 text-red-500">
-                                {{ $message }}
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="relative mb-4 ">
-                        <label for="aktif" class="inline-flex items-center">
-                            <input id="aktif" type="checkbox" checked
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                name="active">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
-                        </label>
+                            </select>
+                        </div>
 
-                        @error('active')
+                        @error('concentration')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
@@ -83,7 +79,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
         <form id="deleteForm" class="hidden" name="deleteForm" method="POST">
-            <x-dialogs.simple-gray-footer title="Hapus Mahasiswa">
+            <x-dialogs.simple-gray-footer title="Hapus Mata Kuliah">
                 <x-slot name="buttons">
                     @csrf
                     @method('DELETE')
@@ -101,7 +97,7 @@
 
                 <x-slot name="description">
                     <p class="text-sm text-gray-500">
-                        Hapus mahasiswa dengan nama <b id="deleteNamePrev"></b>?
+                        Hapus mata kuliah dengan judul <b id="deleteTitlePrev"></b>?
                     </p>
 
                 </x-slot>
@@ -116,7 +112,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
         <form id="editForm" class="hidden" name="editForm" method="POST">
-            <x-dialogs.simple-gray-footer title="Edit Mahasiswa">
+            <x-dialogs.simple-gray-footer title="Edit Mata Kuliah">
                 <x-slot name="buttons">
                     @csrf
                     @method('PATCH')
@@ -133,44 +129,52 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    <input id="editId" type="hidden" name="id_mahasiswa">
-
                     <div class="relative mb-4 ">
-                        <label for="nim" class="text-sm leading-7 text-gray-600">NIM</label>
-                        <input id="editNim" type="number" min="0" step="1" name="nim" pattern="\d{10}"
+                        <label for="title" class="text-sm leading-7 text-gray-600">Nama Matkul</label>
+                        <input id="editTitle" type="text" name="title"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
 
-                        @error('nim')
+                        @error('title')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="nama" class="text-sm leading-7 text-gray-600">Nama</label>
-                        <input id="editNama" type="text" name="nama"
+                        <label for="key" class="text-sm leading-7 text-gray-600">Kode Matkul</label>
+                        <input id="editKey" type="text" name="key"
                             class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <small><i>Misal: TIC18</i></small>
 
-                        @error('nama')
+                        @error('key')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
                     <div class="relative mb-4 ">
-                        <label for="angkatan" class="text-sm leading-7 text-gray-600">Tahun Angkatan</label>
-                        <input id="editAngkatan" type="number" min="2000" step="1" name="angkatan" pattern="\d{4}"
-                            class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                        <div class="relative mb-4 flex flex-col">
+                            <label class="text-sm leading-7 text-gray-600">Konsentrasi</label>
+                            <select id="editConcentration" name="concentration" id=""
+                                class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
+                                <option value="tib">Manajemen Basis Data</option>
+                                <option value="tic">Teknologi Cerdas</option>
+                                <option value="mkj">Jaringan</option>
+                                <option value="mb">Manajemen</option>
 
-                        @error('angkatan')
+                            </select>
+                        </div>
+
+                        @error('concentration')
                             <span class="block pt-2 text-red-500">
                                 {{ $message }}
                             </span>
                         @enderror
                     </div>
+
                     <div class="relative mb-4 ">
                         <label for="aktif" class="inline-flex items-center">
-                            <input id="editAktif" type="checkbox" id="editActive"
+                            <input id="editAktif" type="checkbox" checked
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 name="active">
                             <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
@@ -194,6 +198,7 @@
             </x-dialogs.simple-gray-footer>
         </form>
     </div>
+
 
     <div class="flex flex-col">
         <div class="flex flex-row pb-4">
@@ -222,8 +227,8 @@
             @endif
         </div>
 
-        <div id="mahasiswa-table">
-            <livewire:mahasiswa-dt />
+        <div id="matkul-table">
+            <livewire:matkul-dt />
         </div>
     </div>
 
@@ -246,35 +251,34 @@
             createForm.classList.remove('hidden');
         })
 
-        document.getElementById("mahasiswa-table").addEventListener("click", function(e) {
+        document.getElementById("matkul-table").addEventListener("click", function(e) {
             if (e.target.classList.contains('action-delete')) {
                 // DELETE
                 deleteForm.classList.remove("hidden");
 
-                const namaMahasiswa = e.target.getAttribute("data-mahasiswa-name");
-                document.getElementById("deleteNamePrev").innerText = namaMahasiswa;
+                const namaMatkul = e.target.getAttribute("data-matkul-title");
+                document.getElementById("deleteTitlePrev").innerText = namaMatkul;
 
-                const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
-                deleteForm.action = '/dashboard/mahasiswa/' + idMahasiswa;
+                const _id = e.target.getAttribute("data-matkul-id");
+                deleteForm.action = '/dashboard/matkul/' + _id;
             } else if (e.target.classList.contains('action-show')) {
                 // SHOW
-                const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
-                window.location.assign('/dashboard/mahasiswa/' + idMahasiswa)
+                const _id = e.target.getAttribute("data-matkul-id");
+                window.location.assign('/dashboard/matkul/' + _id)
             } else if (e.target.classList.contains('action-edit')) {
                 // UPDATE
-                const idMahasiswa = e.target.getAttribute("data-mahasiswa-id");
-                const nimMahasiswa = e.target.getAttribute("data-mahasiswa-nim");
-                const namaMahasiswa = e.target.getAttribute("data-mahasiswa-nama");
-                const angkatanMahasiswa = e.target.getAttribute("data-mahasiswa-angkatan");
-                const activeMahasiswa = e.target.getAttribute("data-mahasiswa-active");
+                const _id = e.target.getAttribute("data-matkul-id");
+                const _title = e.target.getAttribute("data-matkul-title");
+                const _key = e.target.getAttribute("data-matkul-key");
+                const _concentration = e.target.getAttribute("data-matkul-concentration");
+                const _active = e.target.getAttribute("data-matkul-active");
 
-                document.getElementById("editId").value = idMahasiswa;
-                document.getElementById("editNim").value = nimMahasiswa;
-                document.getElementById("editNama").value = namaMahasiswa;
-                document.getElementById("editAngkatan").value = angkatanMahasiswa;
-                document.getElementById("editAktif").checked = activeMahasiswa == '1';
+                document.getElementById("editTitle").value = _title;
+                document.getElementById("editKey").value = _key;
+                document.getElementById("editConcentration").value = _concentration;
+                document.getElementById("editAktif").checked = _active == '1';
 
-                editForm.action = '/dashboard/mahasiswa/' + idMahasiswa;
+                editForm.action = '/dashboard/matkul/' + _id;
                 editForm.classList.remove('hidden');
             }
         })

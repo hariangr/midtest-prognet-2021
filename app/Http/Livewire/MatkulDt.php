@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Mahasiswa;
+use App\Models\Matkul;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\TableComponent;
 use Rappasoft\LaravelLivewireTables\Traits\HtmlComponents;
@@ -12,7 +13,7 @@ use Log;
 use Carbon\Carbon;
 use Str;
 
-class MahasiswaDt extends TableComponent
+class MatkulDt extends TableComponent
 {
     use HtmlComponents;
 
@@ -30,29 +31,29 @@ class MahasiswaDt extends TableComponent
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
         </svg>';
 
-    public function query() : Builder
+    public function query(): Builder
     {
-        return Mahasiswa::query();
+        return Matkul::query();
     }
 
-    public function columns() : array
+    public function columns(): array
     {
         return [
             Column::make('ID')
                 ->searchable()
                 ->sortable(),
-            Column::make('NIM')
+            Column::make('Title')
                 ->searchable()
                 ->sortable(),
-            Column::make('Nama')
+            Column::make('Key')
                 ->searchable()
                 ->sortable(),
-            Column::make('Angkatan')
+            Column::make('Konsentrasi', 'concentration')
                 ->searchable()
                 ->sortable(),
             Column::make('Aktif')
                 ->sortable()
-                ->format(function(Mahasiswa $model) {
+                ->format(function (Matkul $model) {
                     if ($model->active) {
                         return "✓";
                     } else {
@@ -60,8 +61,8 @@ class MahasiswaDt extends TableComponent
                     }
                 }),
             Column::make('Actions')
-                ->format(function(Mahasiswa $model) {
-                    return View('components.actions.table-mahasiswa-actions', compact('model'));
+                ->format(function (Matkul $model) {
+                    return View('components.actions.table-matkul-actions', compact('model'));
                 })
         ];
     }

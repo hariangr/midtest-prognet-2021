@@ -17,6 +17,8 @@ class CreateMatkulsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->char('key', 5);
+            $table->boolean('active')->default(true);
             $table->enum('concentration', array('tib', 'tic', 'mkj', 'mb'));
         });
     }
