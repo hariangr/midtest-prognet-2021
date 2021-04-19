@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('dashboard.matkul.index')" :active="request()->segment(2) == 'matkul'">
                         {{ __('Mata Kuliah') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'dosen'">
+                    <x-nav-link :href="route('dashboard.dosen.index')" :active="request()->segment(2) == 'dosen'">
                         {{ __('Dosen') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'kelas'">
@@ -85,7 +85,7 @@
             <x-responsive-nav-link :href="route('dashboard.matkul.index')" :active="request()->segment(2) == 'matkul'">
                 {{ __('Mata Kuliah') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'dosen'">
+            <x-responsive-nav-link :href="route('dashboard.dosen.index')" :active="request()->segment(2) == 'dosen'">
                 {{ __('Dosen') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->segment(2) == 'kelas'">
