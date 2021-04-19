@@ -74,7 +74,24 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        //
+        $request->validate([
+            'nim' => 'required|numeric|digits_between:10,10',
+            'nama' => 'required|string',
+            'angkatan' => 'required|numeric|digits_between:4,4',
+        ]);
+
+        $_active = False;
+        if (isset($request['active'])) {
+            $_active = True;
+        }
+
+        $mahasiswa['nim'] = $request['nim'];
+        $mahasiswa['nama'] = $request['nama'];
+        $mahasiswa['angkatan'] = $request['angkatan'];
+        $mahasiswa['active'] = $_active;
+        $mahasiswa->save();
+
+        return back()->with('success', 'Berhasil mengubah mahasiswa dengan nama: ' . $mahasiswa->nama);
     }
 
     /**
