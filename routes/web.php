@@ -7,7 +7,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KartuStudiController;
 use App\Models\KartuStudi;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +20,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    if (Auth::user()) {
+        return redirect((route('dashboard.mahasiswa.index')));
+    } else {
+        return redirect((route('login')));
+    }
 })->name('welcome');
 
 // Route::get('/dashboard', function () {
