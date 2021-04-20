@@ -47,7 +47,7 @@
             </div>
             <div class="relative mb-4 ">
                 <label for="aktif" class="inline-flex items-center">
-                    <input id="aktif" type="checkbox" {{ $mahasiswa->active ? 'checked' : '' }}
+                    <input disabled id="aktif" type="checkbox" {{ $mahasiswa->active ? 'checked' : '' }}
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         name="active">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>

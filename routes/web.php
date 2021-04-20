@@ -24,7 +24,7 @@ Route::get('/', function () {
     if (Auth::user()) {
         return redirect((route('dashboard.mahasiswa.index')));
     } else {
-        return redirect((route('login')));
+        return redirect((route('register')));
     }
 })->name('welcome');
 

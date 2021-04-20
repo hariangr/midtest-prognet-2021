@@ -83,7 +83,8 @@ class KelasController extends Controller
             'dosens_id' => 'required|exists:dosens,id',
         ]);
 
-        if (Kelas::where('matkuls_id', $request['matkuls_id'])->where('class_name', $request['class_name'])->first() != null) {
+        $exist = Kelas::where('matkuls_id', $request['matkuls_id'])->where('class_name', $request['class_name'])->first();
+        if ($exist != null && $exist->id != $kela->id) {
             return back()->withInput()->with('errMsg', 'Kelas sudah ada');
         }
 

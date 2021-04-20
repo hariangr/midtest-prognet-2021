@@ -181,7 +181,7 @@
                             <option disabled selected>-</option>
 
                             @foreach ($dosens as $it)
-                                <option value="{{ $it->id }}">{{ $it->id }}</option>
+                                <option value="{{ $it->id }}">{{ $it->nama }}</option>
                             @endforeach
                         </select>
 
