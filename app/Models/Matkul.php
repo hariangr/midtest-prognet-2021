@@ -15,4 +15,9 @@ class Matkul extends Model
         'concentration',
         'active',
     ];
+
+    public function pembimbings()
+    {
+        return Kelas::where('matkuls_id', $this->id)->get();
+    }
 }

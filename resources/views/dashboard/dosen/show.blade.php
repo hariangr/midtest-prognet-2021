@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('titleheader')
-    Dashboard Mahasiswa
+    Detail Dosen
 @endsection
 
 @section('content')
@@ -29,26 +29,26 @@
 
             <div class="relative mb-4 ">
                 <label for="title" class="text-sm leading-7 text-gray-600">Nama</label>
-                <input disabled value="{{$dosen->nama}}" type="text" name="nama"
+                <input disabled value="{{ $dosen->nama }}" type="text" name="nama"
                     class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
             </div>
             <div class="relative mb-4 ">
                 <label for="key" class="text-sm leading-7 text-gray-600">NIDN</label>
-                <input disabled value="{{$dosen->nidn}}" type="number" name="nidn"
+                <input disabled value="{{ $dosen->nidn }}" type="number" name="nidn"
                     class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
                 <small><i>Misal: 0027027509</i></small>
 
             </div>
             <div class="relative mb-4 ">
                 <label for="key" class="text-sm leading-7 text-gray-600">Email</label>
-                <input disabled value="{{$dosen->email}}" type="email" name="email"
+                <input disabled value="{{ $dosen->email }}" type="email" name="email"
                     class="w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
                 <small><i>Misal: nama@example.com</i></small>
 
             </div>
             <div class="relative mb-4 ">
                 <label for="aktif" class="inline-flex items-center">
-                    <input disabled id="aktif" type="checkbox" {{ $dosen->active ? 'checked' : ''}}
+                    <input disabled id="aktif" type="checkbox" {{ $dosen->active ? 'checked' : '' }}
                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         name="active">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
@@ -56,6 +56,17 @@
 
             </div>
 
+            <div class="relative mb-4 ">
+                <label for="angkatan" class="text-sm leading-7 text-gray-600">Kelas yang diikuti</label>
+
+                <ol class="list-disc pl-8">
+                    @foreach ($dosen->kelas() as $it)
+                        <a href="{{ route('dashboard.kelas.show', $it->id) }}">
+                            <li>{{ $it->matkul()->title }} {{ $it->class_name }}</li>
+                        </a>
+                    @endforeach
+                </ol>
+            </div>
         </main>
     </div>
 @endsection

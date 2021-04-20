@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('titleheader')
-    Dashboard Mahasiswa
+    Detail Mahasiswa
 @endsection
 
 @section('content')
@@ -52,6 +52,20 @@
                         name="active">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
                 </label>
+            </div>
+
+            <div class="relative mb-4 ">
+                <label for="angkatan" class="text-sm leading-7 text-gray-600">Kelas yang diikuti</label>
+
+                <ol class="list-disc pl-8">
+                    @foreach ($mahasiswa->kartu_studis() as $it)
+                        <li>
+                            <a href="{{route('dashboard.kelas.show', $it->id)}}">
+                                {{ $it->kelas()->matkul()->title }} {{ $it->kelas()->class_name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ol>
             </div>
 
         </main>

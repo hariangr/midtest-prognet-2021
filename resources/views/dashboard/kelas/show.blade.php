@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('titleheader')
-    Dashboard Kelas
+    Detail Kelas
 @endsection
 
 @section('content')

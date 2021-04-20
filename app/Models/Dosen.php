@@ -15,4 +15,9 @@ class Dosen extends Model
         'email',
         'active',
     ];
+
+    public function kelas()
+    {
+        return Kelas::where('dosens_id', $this->id)->get();
+    }
 }

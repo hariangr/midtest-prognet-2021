@@ -16,4 +16,8 @@ class Mahasiswa extends Model
         'active',
     ];
 
+    public function kartu_studis()
+    {
+        return KartuStudi::where('mahasiswas_id', $this->id)->get();
+    }
 }

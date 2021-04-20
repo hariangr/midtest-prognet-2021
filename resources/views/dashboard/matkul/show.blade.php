@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('titleheader')
-    Dashboard Mahasiswa
+    Detail Mata Kuliah
 @endsection
 
 @section('content')
@@ -41,7 +41,8 @@
             <div class="relative mb-4 ">
                 <div class="relative mb-4 flex flex-col">
                     <label class="text-sm leading-7 text-gray-600">Konsentrasi</label>
-                    <select disabled value="{{ $matkul->concentration }}" id="editConcentration" name="concentration" id=""
+                    <select disabled value="{{ $matkul->concentration }}" id="editConcentration" name="concentration"
+                        id=""
                         class=" w-full px-4 py-2 bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:ring-0">
                         <option value="tib">Manajemen Basis Data</option>
                         <option value="tic">Teknologi Cerdas</option>
@@ -59,6 +60,18 @@
                         name="active">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Aktif') }}</span>
                 </label>
+            </div>
+
+            <div class="relative mb-4 ">
+                <label for="angkatan" class="text-sm leading-7 text-gray-600">Kelas yang tersedia</label>
+
+                <ol class="list-disc pl-8">
+                    @foreach ($matkul->pembimbings() as $it)
+                        <a href="{{ route('dashboard.kelas.show', $it->id) }}">
+                            <li>Kelas {{ $it->class_name }}, dibimbing oleh {{ $it->dosen()->nama }}</li>
+                        </a>
+                    @endforeach
+                </ol>
             </div>
         </main>
     </div>
