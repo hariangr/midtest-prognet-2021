@@ -9,7 +9,7 @@
     <div>
         <form id="createForm" action="{{ route('dashboard.kelas.store') }}" class="hidden" name="createForm"
             method="POST">
-            <x-dialogs.simple-gray-footer title="Tambah Dosen">
+            <x-dialogs.simple-gray-footer title="Tambah Kelas">
                 <x-slot name="buttons">
                     @csrf
 
@@ -288,14 +288,14 @@
                 const _matkuls_id = e.target.getAttribute("data-kelas-matkulsid");
                 const _dosens_id = e.target.getAttribute("data-kelas-dosensid");
 
-                console.log({
-                    _id,
-                    _class_name,
-                    _is_ongoing,
-                    _matkuls_id,
-                    _dosens_id,
-                    'entah': `#editDosens [value='${_dosens_id}']`
-                });
+                // console.log({
+                //     _id,
+                //     _class_name,
+                //     _is_ongoing,
+                //     _matkuls_id,
+                //     _dosens_id,
+                //     'entah': `#editDosens [value='${_dosens_id}']`
+                // });
 
                 document.querySelector(`#editMatkuls [value='${_matkuls_id}']`).selected = true;
                 document.getElementById("editClassname").value = _class_name;

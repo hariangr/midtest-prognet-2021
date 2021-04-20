@@ -51,7 +51,7 @@ class MahasiswaDt extends TableComponent
                 ->searchable()
                 ->sortable(),
             Column::make('Aktif')
-                ->sortable()
+                // ->sortable()
                 ->format(function(Mahasiswa $model) {
                     if ($model->active) {
                         return "✓";
